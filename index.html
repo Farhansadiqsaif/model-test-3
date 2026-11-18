@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="bn">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DU Science Lab | Model Test 03</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f5ef;color:#182f28;font:16px/1.65 "Nirmala UI","Noto Sans Bengali",system-ui,sans-serif}header{background:#143e32;color:white;position:sticky;top:0;z-index:2}header div,main{max-width:920px;margin:auto;padding:14px 20px}header div{display:flex;align-items:center;justify-content:space-between}#clock{font:700 1.5rem monospace;color:#f1d999}section,article{background:white;padding:clamp(16px,4vw,32px);border:1px solid #d7e1d9;border-radius:14px;margin:14px 0;scroll-margin-top:80px}h1{font-size:clamp(2rem,6vw,3.6rem);line-height:1.2;margin:12px 0}h2,h3,p{margin:.55em 0}small{color:#496457}button,nav a,.file{background:#1b624b;color:white;border:0;padding:10px 16px;border-radius:8px;font:inherit;cursor:pointer;display:inline-block;text-decoration:none;margin:4px}button:disabled{opacity:.55;cursor:wait}.secondary,nav a{background:#e7eee9;color:#234937}label{display:block;margin:8px 0}input,textarea{font:inherit;max-width:100%}input:not([type=radio]),textarea{border:1px solid #9baea2;padding:9px;border-radius:7px}textarea{width:100%;min-height:105px}.option{border:1px solid #dbe5dd;border-radius:8px;padding:8px;cursor:pointer}.option:has(:checked){background:#e4f3e8}img{max-width:100%;max-height:320px;display:block}.answer{white-space:pre-wrap;background:#edf5ef;padding:12px;border-radius:8px}.notice{color:#70470d}h2[id]{scroll-margin-top:80px}table{border-collapse:collapse}td,th{padding:5px 10px;border-bottom:1px solid #ddd}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #dbab48}#warning{margin:auto;max-width:920px;color:#8e2d19} @media print{header{position:static}.controls,button,nav,#network{display:none}body{background:white}article{break-inside:avoid}}
+</style>
+<header><div><b>DU SCIENCE LAB · MODEL TEST 03</b><span id="clock"></span></div></header>
+<div id="warning" role="alert"></div><main id="app">পরীক্ষা লোড হচ্ছে…</main>
+<script>
+"use strict";
+const ENDPOINT="https://script.google.com/macros/s/AKfycbz_N5gN3CYf7QmqV42llJEC5jvDfKpy4Kr19KDrmVcMzl8PE36csyUfMuNgQbHbBepBwQ/exec";
+const SUBJECTS=["পদার্থবিজ্ঞান","রসায়ন","উচ্চতর গণিত","জীববিজ্ঞান"];
+// Each line contains the stem, four choices, the one-based key, and the solution.
+const bank=`
+সমান ভরের দুটি চাকতি একই অক্ষে যথাক্রমে ω ও শূন্য কৌণিক বেগে ঘুরছে। তাদের জড়তার ভ্রামক I ও 2I। বাহ্যিক টর্ক ছাড়া তারা যুক্ত হলে প্রাথমিক ঘূর্ণনশক্তির কত অংশ অবশিষ্ট থাকে?|১/৯|১/৩|২/৩|৩/৪|2|কৌণিক ভরবেগ সংরক্ষণে চূড়ান্ত বেগ ω/৩। শক্তির অনুপাত ৩I(ω/৩)²/(Iω²)=১/৩।
+মসৃণ তলে ২ kg ভরের বস্তু ৬ m/s বেগে চলতে গিয়ে স্থির ১ kg বস্তুর সঙ্গে একমাত্রিক সম্পূর্ণ স্থিতিস্থাপক সংঘর্ষ করে। হালকা বস্তুটির চূড়ান্ত বেগ কত?|৪ m/s|৬ m/s|৮ m/s|১২ m/s|3|ভরবেগ সংরক্ষণ ও আপেক্ষিক বিচ্ছেদ বেগ ৬ m/s ব্যবহার করলে হালকা বস্তুর বেগ ২×২×৬/৩=৮ m/s।
+একটি সমসত্ত্ব কঠিন গোলক স্থির অবস্থা থেকে না পিছলে গড়িয়ে h উচ্চতা নামে। I=2mR²/5 হলে গতিশক্তির কত অংশ ঘূর্ণনজনিত?|২/৫|৫/৭|১/৫|২/৭|4|ঘূর্ণনশক্তি : স্থানান্তরশক্তি = I/(mR²) = ২/৫। তাই মোটের ২/৭ অংশ ঘূর্ণনশক্তি।
+পানির একটি অনুভূমিক পাইপের সরু অংশের ক্ষেত্রফল চওড়া অংশের অর্ধেক। চওড়া অংশে বেগ ২ m/s। আদর্শ প্রবাহে দুই অংশের চাপের পার্থক্য কত? ρ=১০০০ kg/m³।|৬ kPa|২ kPa|৪ kPa|৮ kPa|1|ধারাবাহিকতা থেকে সরু অংশে বেগ ৪। বার্নুলির সূত্রে চাপপতন ½×১০০০×(১৬−৪)=৬০০০ Pa।
+এক প্রান্ত বন্ধ নলের পরপর দুটি অনুনাদের কার্যকর দৈর্ঘ্য ১৮ cm ও ৫৪ cm। শব্দের বেগ ৩৬০ m/s হলে উৎসের কম্পাঙ্ক কত?|২৫০ Hz|৫০০ Hz|৭৫০ Hz|১০০০ Hz|2|পরপর অনুনাদে দৈর্ঘ্যের পার্থক্য λ/২=৩৬ cm। তাই f=৩৬০/০.৭২=৫০০ Hz।
+একটি স্থির শ্রোতার দিকে ৩৪ m/s বেগে চলমান উৎস ৯০০ Hz শব্দ করে। শব্দের বেগ ৩৪০ m/s হলে শ্রোতা কত কম্পাঙ্ক শুনবেন?|৮১০ Hz|৯৯০ Hz|১০০০ Hz|১১০০ Hz|3|উৎস এগিয়ে এলে সম্মুখে তরঙ্গদৈর্ঘ্য সংকুচিত হয়। f′=৯০০×৩৪০/(৩৪০−৩৪)=১০০০ Hz।
+একটি আদর্শ একপরমাণুক গ্যাস স্থির চাপে প্রসারিত হয়ে ৮০ J কাজ করে। গ্যাসের অভ্যন্তরীণ শক্তি কত বাড়ে?|৪৮ J|৮০ J|২০০ J|১২০ J|4|W=nRΔT। একপরমাণুক গ্যাসে ΔU=(৩/২)nRΔT=১২০ J।
+৪ μF-এর একটি ধারককে ১২ V পর্যন্ত চার্জ করে ব্যাটারি খুলে নেওয়া হলো। পাতের ফাঁক সম্পূর্ণভাবে K=৩ পরাবৈদ্যুতিক দিয়ে পূর্ণ করলে বিভব কত হবে?|৪ V|১২ V|৩৬ V|৬ V|1|বিচ্ছিন্ন ধারকে Q স্থির এবং C তিন গুণ। তাই V′=V/৩=৪ V।
+সুষম তড়িৎক্ষেত্রে একটি দ্বিমেরুকে ক্ষেত্রের সমান্তরাল অবস্থান থেকে ধীরে ধীরে ১২০° ঘোরানো হলো। বাহ্যিক বলের কাজ কত?|pE/২|pE|৩pE/২|২pE|3|U=−pE cosθ। ΔU=pE/২−(−pE)=৩pE/২।
+১০০ Ω রোধের গ্যালভানোমিটারে ১ mA প্রবাহে পূর্ণ বিচ্যুতি হয়। ১ A পর্যন্ত মাপতে সমান্তরালে কত রোধ লাগবে?|১০০/৯৯৯ Ω|১০০/৯৯ Ω|৯৯৯/১০০ Ω|৯৯৯ Ω|1|মিটারে বিভব ০.১ V। শান্টে প্রবাহ ০.৯৯৯ A। R=০.১/০.৯৯৯=১০০/৯৯৯ Ω।
+শ্রেণি RLC বর্তনীতে R=৩০ Ω, Xᴸ=৬০ Ω ও Xᶜ=২০ Ω। ক্ষমতা গুণক কত?|০.৮|০.৬|০.৫|১|2|Z=√(৩০²+৪০²)=৫০ Ω। cosφ=R/Z=০.৬।
+বায়ুতে একটি প্রিজমের শীর্ষকোণ ৬০° ও ন্যূনতম বিচ্যুতি ৩০°। উপাদানের প্রতিসরাঙ্ক কত?|√৩|৩/২|২|√২|4|μ=sin[(A+D)/২]/sin(A/২)=sin৪৫°/sin৩০°=√২।
+হাইড্রোজেনের n=৪ থেকে n=২ স্তরে পতনে নির্গত ফোটনের শক্তি কত? Eₙ=−১৩.৬/n² eV।|১.৮৯ eV|২.৫৫ eV|৩.৪০ eV|১০.২ eV|2|ΔE=১৩.৬(১/৪−১/১৬)=২.৫৫ eV।
+একটি আদর্শ ট্রান্সফরমারে প্রাথমিক ও গৌণ পাকের অনুপাত ৫:১। প্রাথমিক বিভব ২০০ V এবং গৌণে ২০ Ω লোড থাকলে প্রাথমিক প্রবাহ কত?|০.৪ A|২ A|১০ A|০.০৮ A|1|গৌণে বিভব ৪০ V ও প্রবাহ ২ A। ক্ষমতা ৮০ W। প্রাথমিক প্রবাহ ৮০/২০০=০.৪ A।
+একটি তারে টান চার গুণ ও কম্পনশীল দৈর্ঘ্য দ্বিগুণ করা হলো। রৈখিক ঘনত্ব স্থির থাকলে মৌলিক কম্পাঙ্কের কী পরিবর্তন হবে?|অর্ধেক হবে|দ্বিগুণ হবে|চার গুণ হবে|অপরিবর্তিত থাকবে|4|f=(১/২L)√(T/μ)। বর্গমূলের গুণক ২ ও দৈর্ঘ্যের গুণক ২ পরস্পর কাটে।
+একই তাপমাত্রায় একটি গ্যাস ছিদ্র দিয়ে O₂-এর তুলনায় দ্বিগুণ দ্রুত নিঃসৃত হয়। গ্যাসটির মোলার ভর কত?|৮ g/mol|১৬ g/mol|৬৪ g/mol|১২৮ g/mol|1|গ্রাহামের সূত্রে ২=√(৩২/M)। তাই M=৮।
+কার্বনের দহন এনথালপি −৩৯৪ এবং CO-এর দহন এনথালপি −২৮৩ kJ/mol। C(গ্রাফাইট)+½O₂→CO-এর ΔH কত?|−৬৭৭|+১১১|−১১১|+৬৭৭|3|CO গঠন ও পরবর্তী দহন যোগ করলে কার্বনের দহন পাওয়া যায়। ΔH=−৩৯৪−(−২৮৩)=−১১১ kJ/mol।
+একটি বিক্রিয়ার হার পরীক্ষায় [A] দ্বিগুণ করলে হার চার গুণ হয়। [B] দ্বিগুণ করলে হার অর্ধেক হয়। প্রতিবার অন্য ঘনমাত্রা স্থির। মোট ক্রম কত?|৩|১|২|−১|2|A-এর সাপেক্ষে ক্রম ২ এবং B-এর সাপেক্ষে −১। মোট ক্রম ১।
+স্থির তাপমাত্রায় PCl₅(g) ⇌ PCl₃(g)+Cl₂(g)। শুধু PCl₅ নিয়ে শুরু করলে সাম্যে গড় মোলার ভর প্রাথমিক মোলার ভরের ২/৩ হয়। বিয়োজনমাত্রা কত?|১/৩|২/৩|১/৪|১/২|4|এক মোল থেকে মোট ১+α মোল হয়। M̄=M/(১+α)=২M/৩ থেকে α=১/২।
+২৫°C-এ ০.০১ M একপ্রোটিক দুর্বল অ্যাসিড ১% আয়নিত। পানির অবদান উপেক্ষা করলে pH কত?|২|৩|৪|৫|3|[H⁺]=০.০১×০.০১=১০⁻⁴ M। pH=৪।
+০.১০ M BaCl₂ ও ০.১০ M Na₂SO₄ সমান আয়তনে মেশানো হলো। অধঃক্ষেপ পড়ার আগের মুহূর্তে BaSO₄-এর আয়নিক গুণফল কত?|১.০×১০⁻²|২.৫×১০⁻³|৫.০×১০⁻³|২.৫×১০⁻²|2|আয়তন দ্বিগুণ হওয়ায় উভয় আয়নের ঘনমাত্রা ০.০৫ M। গুণফল ০.০৫²।
+CH₄ ও O₂-এর মিশ্রণে ২ mol CH₄ এবং ৩ mol O₂ আছে। শুধু সম্পূর্ণ দহন ঘটলে কী অবশিষ্ট থাকবে?|০.৫ mol CH₄|১ mol O₂|১ mol CH₄|০.৫ mol O₂|1|CH₄+২O₂→CO₂+২H₂O। ৩ mol O₂ দিয়ে ১.৫ mol CH₄ পোড়ে।
+কোন অণুতে কেন্দ্রীয় পরমাণুর চারপাশে তিনটি ইলেকট্রন ডোমেন থাকলেও অণুটি কৌণিক?|BF₃|CO₂|NH₃|SO₂|4|SO₂-তে কেন্দ্রীয় S-এর দুটি বন্ধন ডোমেন ও একটি নিঃসঙ্গ জোড় আছে। ফলে অণুটি কৌণিক।
+১-বিউটাইন ও ২-বিউটাইনের মধ্যে কোন বিকারক দিয়ে পার্থক্য করা যায়?|ব্রোমিন জল|অ্যামোনিয়াযুক্ত AgNO₃|H₂/Ni|অম্লীয় KMnO₄|2|শুধু প্রান্তীয় অ্যালকাইনে ≡C–H থাকে। ১-বিউটাইন সিলভার অ্যাসিটাইলাইড লবণের অধঃক্ষেপ দেয়।
+২-বিউটানলের মৃদু জারণে উৎপন্ন জৈব যৌগটির কোন বৈশিষ্ট্য থাকবে?|টলেন পরীক্ষায় রুপালি দর্পণ|NaHCO₃-এ CO₂ নির্গমন|২,৪-DNP পরীক্ষায় অধঃক্ষেপ|ব্রোমিন জলে সাদা অধঃক্ষেপ|3|সেকেন্ডারি অ্যালকোহল থেকে বিউটান-২-ওন হয়। কিটোনের কার্বনিল মূলক ২,৪-DNP বিকারকে অধঃক্ষেপ দেয়।
+p-নাইট্রোফেনল ফেনলের চেয়ে বেশি অম্লীয় কেন?|নাইট্রো মূলক অনুবন্ধী ক্ষারকে স্থিতিশীল করে|নাইট্রো মূলক ইলেকট্রন দান করে|ফেনলে কোনো π বন্ধন নেই|উভয়ের অনুবন্ধী ক্ষার অভিন্ন|1|ইলেকট্রন আকর্ষণকারী −NO₂ মূলক আবেশ ও অনুরণনের মাধ্যমে ফেনক্সাইডের ঋণাত্মক আধান স্থিতিশীল করে।
+[Co(NH₃)₅Cl]Cl₂ যৌগে Co-এর জারণ সংখ্যা ও সমন্বয় সংখ্যা যথাক্রমে কত?|+২, ৫|+৩, ৫|+২, ৬|+৩, ৬|4|জটিল আয়নের আধান +২। x−১=+২ থেকে x=+৩। পাঁচ NH₃ ও এক Cl⁻ মিলিয়ে ছয় দাতা পরমাণু।
+একটি আদর্শ দ্রবণে উদ্বায়ী A ও B-এর মোল ভগ্নাংশ যথাক্রমে ০.২৫ ও ০.৭৫। বিশুদ্ধ অবস্থায় বাষ্পচাপ যথাক্রমে ৮০ ও ৪০ kPa। বাষ্পে A-এর মোল ভগ্নাংশ কত?|০.২৫|০.৪০|০.৫০|০.৬০|2|pA=২০, pB=৩০ kPa। বাষ্পে yA=২০/(২০+৩০)=০.৪০।
+একটি বদ্ধ পাত্রে NH₄HS(s) ⇌ NH₃(g)+H₂S(g) সাম্য প্রতিষ্ঠিত হলো। শুরুতে গ্যাস ছিল না। মোট সাম্যচাপ ০.৬ atm হলে Kp-এর সংখ্যামান কত? চাপ atm-এ নিন।|০.০৯|০.১৮|০.৩০|০.৩৬|1|গ্যাস দুটি সমমোলে তৈরি হয়। প্রতিটির আংশিক চাপ ০.৩ atm। কঠিনকে বাদ দিয়ে Kp=০.৩²।
+জলীয় KI-এর তড়িৎ বিশ্লেষণে নিষ্ক্রিয় তড়িৎদ্বার ব্যবহার করা হলো। অ্যানোডে শুধু I⁻ জারিত হলে প্রতি ১ mol H₂ ক্যাথোডে উৎপাদনের সঙ্গে কত mol I₂ উৎপন্ন হবে?|০.৫|২|১|৪|3|২H₂O+২e⁻→H₂+২OH⁻ এবং ২I⁻→I₂+২e⁻। একই দুই মোল ইলেকট্রনে এক মোল করে গ্যাস ও আয়োডিন হয়।
+`.trim();
+const rest=`
+A²=I এবং A একটি ২×২ ম্যাট্রিক্স। (I+A)(I−A)-এর মান কোনটি?|I|2I|শূন্য ম্যাট্রিক্স|A|3|গুণ করলে I−A² পাওয়া যায়, যা শূন্য ম্যাট্রিক্স।
+জটিল সমতলে z বিন্দুর ১ ও i থেকে দূরত্ব সমান। z=x+iy হলে সঞ্চারপথ কোনটি?|x+y=১|x=y|x=১|y=১|2|(x−১)²+y²=x²+(y−১)² সরল করলে x=y।
+x²−2kx+k+2=0 সমীকরণের মূল দুটি বিপরীত চিহ্নের বাস্তব সংখ্যা হলে কোনটি সত্য?|k<−২|k>২|−২<k<২|k=−২|1|মূলের গুণফল k+২ ঋণাত্মক হতে হবে। এই শর্তে বিচ্যুতি ধনাত্মক হওয়াও নিশ্চিত।
+sin⁻¹(৩/৫)+cos⁻¹(৩/৫)-এর দ্বিগুণ কোণের কোসাইন কত? বিপরীত ফাংশনের মুখ্য মান নিন।|১|০|১/২|−১|4|মূল কোণদ্বয়ের যোগ π/২। দ্বিগুণের কোসাইন cosπ=−১।
+x>০ এবং x+৪/x=৫ হলে x²+১৬/x² কত?|৯|১৭|২১|২৫|2|বর্গ করলে মাঝের পদ ২×৪=৮। তাই চাওয়া মান ২৫−৮=১৭।
+বৃত্ত x²+y²=২৫ ও সরলরেখা x=৩-এর ছেদবিন্দুদ্বয়ের মধ্যবর্তী দূরত্ব কত?|৪|৬|৮|১০|3|y²=১৬ থেকে y=±৪। একই x-স্থানাঙ্কে দূরত্ব ৮।
+x²/২৫+y²/৯=১ উপবৃত্তের দুই উপকেন্দ্রের মধ্যবর্তী দূরত্ব কত?|৮|৪|১০|৬|1|c²=a²−b²=১৬। দুই উপকেন্দ্রের দূরত্ব ২c=৮।
+(১,১) বিন্দু থেকে রেখা y=২x-এর ওপর অঙ্কিত লম্বের পাদবিন্দু কোনটি?|(২/৫,৪/৫)|(১/২,১)|(৪/৫,৮/৫)|(৩/৫,৬/৫)|4|রেখার দিক (১,২)। প্রক্ষেপের গুণক [(১,১)·(১,২)]/৫=৩/৫।
+f(x)=(√(১+x)−১)/x যখন x≠০। x=০-তে অবিচ্ছিন্ন করতে f(০) কত নিতে হবে?|০|১|১/২|২|3|অনুবন্ধী দিয়ে গুণে রাশি হয় ১/(√(১+x)+১)। শূন্যে সীমা ১/২।
+x=t²+১ ও y=t³−t হলে t=১-এ dy/dx কত?|১|২|৩/২|০|1|dy/dx=(৩t²−১)/(২t)। t=১-এ মান ১।
+I=∫₀^π x sin x dx। x-এর পরিবর্তে π−x বসালে প্রতিসাম্য থেকে I কত?|π/২|π|২π|২|2|I=∫(π−x)sin x dx। দুটি যোগে ২I=π∫₀^π sin x dx=২π।
+ছয়জন ভিন্ন শিক্ষার্থী একটি গোল টেবিলে বসবে। নির্দিষ্ট দুজন পাশাপাশি বসলে কত বিন্যাস সম্ভব? ঘূর্ণনে অভিন্ন বিন্যাস একবার গণনা করুন।|২৪|৯৬|১২০|৪৮|4|জোড়াটিকে একক ধরলে পাঁচটি এককের চক্রাকার বিন্যাস ৪!। জোড়ার অভ্যন্তরীণ বিন্যাস ২। মোট ৪৮।
+দুটি সুষম ছক্কা নিক্ষেপে জানা গেল যোগফল জোড়। যোগফল ৬ হওয়ার শর্তাধীন সম্ভাবনা কত?|৫/৩৬|১/৩|৫/১৮|১/৬|3|জোড় যোগফলের ফল ১৮টি। যোগফল ৬ হয় পাঁচটি ক্রমজোড়ে। সম্ভাবনা ৫/১৮।
+(২x−১/x)⁶-এর বিস্তৃতিতে x-মুক্ত পদ কত?|১৬০|−১৬০|−৮০|৮০|2|সাধারণ পদে x-এর ঘাত ৬−২r। r=৩ হলে ধ্রুবপদ = ⁶C₃×২³×(−১)³=−১৬০।
+a=(১,০,১) ও b=(০,২,০) দ্বারা গঠিত ত্রিভুজের ক্ষেত্রফল কত? ভেক্টর দুটির আদি বিন্দু একই।|√২|২√২|২|৪|1|ভেক্টর দুটি লম্ব। ক্ষেত্রফল ½×√২×২=√২।
+একটি সপুষ্পক উদ্ভিদের পাতার কোষে ১৮টি ক্রোমোজোম। স্বাভাবিক দ্বিনিষেকের পর ভ্রূণ ও প্রাথমিক সস্যকেন্দ্রে ক্রোমোজোম যথাক্রমে কত?|৯ ও ১৮|১৮ ও ১৮|১৮ ও ২৭|২৭ ও ১৮|3|n=৯। ডিম্বাণু ও শুক্রাণু মিলে ২n ভ্রূণ এবং দুই মেরুকেন্দ্র ও অপর শুক্রাণু মিলে ৩n সস্যকেন্দ্র হয়।
+একটি বীজে খাদ্য সঞ্চিত আছে প্রধানত বীজপত্রে। অঙ্কুরোদ্গমে বীজপত্র মাটির ওপরে ওঠে। কোন অংশের দৈর্ঘ্য বৃদ্ধি এই উত্থান ঘটায়?|এপিকোটাইল|হাইপোকোটাইল|ভ্রূণমূল|বীজত্বক|2|মাটির ওপর বীজপত্র ওঠা অধোবীজপত্রীয় কাণ্ডাংশ বা হাইপোকোটাইলের বৃদ্ধির ফল।
+একটি ডালের চারদিক থেকে বাকল সরানো হয়েছে, ভেতরের কাঠ অক্ষত। কিছুদিন পরে কাটার ঠিক ওপরের অংশ স্ফীত হলো কেন?|ফ্লোয়েমে খাদ্য পরিবহন বাধাগ্রস্ত|জাইলেমে পানি চলাচল বন্ধ|পাতায় শ্বসন বন্ধ|মূলের পানি কেবল নিচে নামে|1|বলয়াকারে বাকল কাটলে ফ্লোয়েম বিচ্ছিন্ন হয়। পাতা থেকে নিচে যাওয়া শর্করা কাটার ওপরে জমে।
+উদ্ভিদকোষের দ্রব বিভব −০.৮ MPa ও চাপ বিভব +০.৩ MPa। বাইরের দ্রবণের পানি বিভব −০.২ MPa হলে প্রাথমিকভাবে কী ঘটবে?|পানি বের হবে|পানি চলাচলের নিট হার শূন্য|শুধু দ্রব ভেতরে যাবে|পানি কোষে ঢুকবে|4|কোষের পানি বিভব −০.৫ MPa। পানি উচ্চতর বিভব −০.২ থেকে নিম্নতর বিভব −০.৫-এর দিকে যাবে।
+একটি পাতায় শুধু চক্রাকার ফটোফসফরাইলেশন চলছে। সরাসরি কোন উৎপাদটি তৈরি হবে?|ATP ও NADPH|শুধু ATP|ATP ও O₂|শুধু O₂|2|ফটোসিস্টেম I-এর ইলেকট্রন একই পথে ফেরে। প্রোটন গ্রেডিয়েন্টে ATP তৈরি হয়। পানির আলোকবিশ্লেষণ বা নিট NADPH উৎপাদন ঘটে না।
+পেশিকোষে অক্সিজেন সরবরাহের তুলনায় চাহিদা বেড়ে গেলে পাইরুভেট ল্যাকটেটে রূপান্তরিত হয়। এর ফলে গ্লাইকোলাইসিস চলতে পারে কেন?|অক্সিজেন উৎপন্ন হয়|মাইটোকন্ড্রিয়ার সংখ্যা বাড়ে|NAD⁺ পুনরুৎপন্ন হয়|ল্যাকটেট সরাসরি ATP সিন্থেজ চালায়|3|পাইরুভেট বিজারিত হওয়ার সময় NADH জারিত হয়ে NAD⁺ হয়। গ্লাইকোলাইসিসে এই NAD⁺ লাগে।
+একজন বাহক নারী ও স্বাভাবিক পুরুষের সন্তানদের মধ্যে কেবল পুত্রদের বিবেচনা করুন। X-সংযুক্ত প্রচ্ছন্ন বৈশিষ্ট্য প্রকাশের সম্ভাবনা কত?|১/৪|৩/৪|১|১/২|4|পুত্র পিতার Y ও মাতার একটি X পায়। বাহক মায়ের দুটি X-এর একটি প্রচ্ছন্ন অ্যালিল বহন করে।
+A গ্রুপের মা ও B গ্রুপের বাবার একটি সন্তান O গ্রুপের। পরবর্তী সন্তান AB গ্রুপের হওয়ার সম্ভাবনা কত?|১/৪|১/২|০|৩/৪|1|O সন্তানের জন্য মা ও বাবা উভয়েই i বহন করেন। Iᴬi × Iᴮi সংকরায়ণে চার সমসম্ভাব্য জিনোটাইপের একটি IᴬIᴮ।
+একটি পরিণত mRNA-এর অনুবাদযোগ্য অংশে সূচনা ও সমাপ্তি কোডনসহ ৩০৩টি নিউক্লিওটাইড আছে। উৎপন্ন প্রাথমিক পলিপেপটাইডে কতটি অ্যামিনো অ্যাসিড থাকবে?|৯৯|১০১|১০০|৩০৩|3|৩০৩/৩=১০১টি কোডন। সূচনা কোডন একটি অ্যামিনো অ্যাসিড নির্দেশ করে, সমাপ্তি কোডন করে না। তাই ১০০টি।
+একটি কোষে গলজি বডি থেকে নিঃসরণ ভেসিকল তৈরি ব্যাহত হলো। কোন প্রক্রিয়ায় সরাসরি প্রভাব পড়বে?|নিউক্লিয়াসে DNA প্রতিলিপি|কোষের বাইরে প্রোটিন নিঃসরণ|মাইটোকন্ড্রিয়ায় ক্রেবস চক্র|রাইবোসোমে কোডন শনাক্তকরণ|2|নিঃসরণযোগ্য প্রোটিন গলজিতে বাছাই ও প্যাকেটজাত হয়ে ভেসিকলের মাধ্যমে কোষঝিল্লিতে পৌঁছায়।
+সক্রিয় পেশিতে CO₂ বাড়লে এবং pH কমলে অক্সিহিমোগ্লোবিন বিয়োজন বক্ররেখা কোন দিকে সরে এবং কেন?|বামে, O₂ আসক্তি বাড়ে|বামে, O₂ আসক্তি কমে|ডানে, O₂ আসক্তি বাড়ে|ডানে, O₂ আসক্তি কমে|4|বোর প্রভাবে H⁺ ও CO₂ বৃদ্ধিতে হিমোগ্লোবিনের অক্সিজেন আসক্তি কমে। একই আংশিক চাপে পেশিতে বেশি অক্সিজেন মুক্ত হয়।
+স্বাভাবিক ফুসফুসে জোরে প্রশ্বাস ত্যাগের পরও কিছু বায়ু রয়ে যায়। সাধারণ স্পাইরোমিটার দিয়ে কোন রাশিটি সরাসরি মাপা যায়?|ভাইটাল ক্যাপাসিটি|রেসিডুয়াল ভলিউম|মোট ফুসফুস ধারণক্ষমতা|ফাংশনাল রেসিডুয়াল ক্যাপাসিটি|1|ভাইটাল ক্যাপাসিটি সম্পূর্ণভাবে আদানপ্রদানযোগ্য। অন্য তিনটি রাশির প্রতিটিতে অবশিষ্ট বায়ু অন্তর্ভুক্ত।
+একটি পেশিতন্তু সংকুচিত হচ্ছে। স্লাইডিং ফিলামেন্ট তত্ত্ব অনুযায়ী কোন যুগল পরিবর্তনটি সঠিক?|A ব্যান্ড ছোট, I ব্যান্ড স্থির|A ও I ব্যান্ড উভয়ই বড়|A ব্যান্ড স্থির, I ব্যান্ড ছোট|H জোন বড়, সারকোমিয়ার ছোট|3|মোটা ফিলামেন্টের দৈর্ঘ্য অপরিবর্তিত থাকায় A ব্যান্ড স্থির। ওভারল্যাপ বাড়ায় I ব্যান্ড ও H জোন সরু হয়।
+অগ্ন্যাশয়ের নালি সাময়িকভাবে বন্ধ হলে ক্ষুদ্রান্ত্রে কোন প্রক্রিয়াটি সরাসরি কমবে?|পাকস্থলীতে পেপসিনোজেন নিঃসরণ|অম্লীয় কাইমের বাইকার্বোনেট দ্বারা প্রশমন|যকৃতে পিত্ত তৈরি|বৃহদন্ত্রে পানি শোষণ|2|অগ্ন্যাশয় রসের বাইকার্বোনেট ডিওডেনামে অম্লীয় কাইমকে প্রশমিত করে। নালি বন্ধ হলে এই সরবরাহ কমে।
+একটি জলাশয়ে পুষ্টিলবণ বেড়ে শৈবালের ব্যাপক বৃদ্ধি ঘটল। শৈবাল মরার পরে মাছ মারা যাওয়ার সবচেয়ে প্রত্যক্ষ কারণ কোনটি?|পানির নাইট্রোজেন সঙ্গে সঙ্গে শেষ হয়|জলের মোট আয়তন কমে|সব উৎপাদক শ্বসন বন্ধ করে|বিয়োজকদের শ্বসনে দ্রবীভূত অক্সিজেন কমে|4|মৃত জৈব পদার্থ ভাঙতে অণুজীবের অক্সিজেন চাহিদা বাড়ে। পানিতে অক্সিজেন ঘাটতি মাছের শ্বসনে বাধা দেয়।
+`.trim();
+const questions=(bank+"\n"+rest).split("\n").map(line=>{
+  const [stem,a,b,c,d,key,why]=line.split("|");
+  return {stem,options:[a,b,c,d],key:Number(key)-1,why};
+});
+// Per subject: two questions, five marks each.
+const papers=[
+["একটি ৪ kg ব্লক ঘর্ষণযুক্ত অনুভূমিক টেবিলে রাখা। হালকা সুতা ও মসৃণ পুলির মাধ্যমে এটি একটি ঝুলন্ত ২ kg ব্লকের সঙ্গে যুক্ত। বস্তুদ্বয় স্থির অবস্থা থেকে চলে। গতীয় ঘর্ষণ সহগ ০.২৫, g=১০ m/s²। (ক) ঘর্ষণ ও ত্বরণ নির্ণয় করুন [২]। (খ) সুতার টান কত [১]? (গ) ঝুলন্ত ব্লক ১.২ m নামলে শক্তির হিসাব দিয়ে বেগ যাচাই করুন [২]।",
+"ঘর্ষণ=০.২৫×৪×১০=১০ N [১]। লব্ধি বল ২০−১০=১০ N, ত্বরণ ১০/৬=৫/৩ m/s² [১]। টান ২০−২×৫/৩=৫০/৩ N [১]। বিভবশক্তি কমে ২৪ J, ঘর্ষণে ব্যয় ১২ J [১]। ½×৬v²=১২ থেকে v=২ m/s [১]।"],
+["একটি ২ Ω পরিবাহী দণ্ড ০.৫০ m ব্যবধানের দুটি সমান্তরাল রেলের ওপর রেলের লম্বভাবে রাখা। রেলদ্বয়ের এক প্রান্ত ৩ Ω রোধ দিয়ে যুক্ত। পাতের লম্বে ০.৮ T ক্ষেত্র। দণ্ডকে ৫ m/s সমবেগে রেল বরাবর টানা হয়। রেলের রোধ উপেক্ষা করুন। (ক) আবিষ্ট ইএমএফ ও প্রবাহ [২], (খ) বাহ্যিক বলের মান ও দিক [১], (গ) প্রতি সেকেন্ডে করা কাজ ও মোট জুলতাপ তুলনা করুন [২]।",
+"ε=BLv=২ V [১]। I=২/(২+৩)=০.৪ A [১]। চৌম্বক বল গতির বিপরীতে, তাই বাহ্যিক বল গতির দিকে BIL=০.১৬ N [১]। যান্ত্রিক ক্ষমতা Fv=০.৮ W [১]। তাপক্ষমতা I²R=০.৮ W, প্রতি সেকেন্ডে উভয়ই ০.৮ J [১]।"],
+["একটি ২.৫০ g নমুনায় শুধু Na₂CO₃ ও NaCl আছে। অতিরিক্ত HCl যোগে ৪৪৮ mL শুষ্ক CO₂ পাওয়া গেল। ঐ অবস্থায় মোলার আয়তন ২২.৪ L/mol। Na₂CO₃=১০৬ g/mol। (ক) বিক্রিয়া ও CO₂-এর মোল [২], (খ) Na₂CO₃-এর ভরশতাংশ [২], (গ) বিক্রিয়ায় ব্যবহৃত ০.৫০ M HCl-এর ন্যূনতম আয়তন নির্ণয় করুন [১]।",
+"Na₂CO₃+২HCl→২NaCl+H₂O+CO₂ [১]। CO₂=০.৪৪৮/২২.৪=০.০২০ mol [১]। কার্বনেটের ভর ০.০২০×১০৬=২.১২ g [১]। ভরশতাংশ=২.১২/২.৫০×১০০=৮৪.৮% [১]। HCl লাগে ০.০৪০ mol, আয়তন ০.০৮০ L=৮০ mL [১]।"],
+["প্রোপিনের অম্ল-অনুঘটিত জলযোজনে A হয়। A-এর জারণে B হয়। (ক) A ও B-এর সংকুচিত গাঠনিক সংকেত লিখুন [২]। (খ) প্রধান জলযোজন উৎপাদটি কেন হয়, কার্বোক্যাটায়নের স্থায়িত্ব দিয়ে বুঝিয়ে লিখুন [২]। (গ) B ও প্রোপান্যালকে আলাদা করার একটি পরীক্ষা ও পর্যবেক্ষণ লিখুন [১]।",
+"A=CH₃CH(OH)CH₃ [১], B=CH₃COCH₃ [১]। প্রান্তীয় কার্বনে H⁺ যুক্ত হলে মধ্যের কার্বনে সেকেন্ডারি কার্বোক্যাটায়ন হয়, যা প্রাইমারির চেয়ে স্থায়ী [১]। পানি আক্রমণ ও প্রোটন অপসারণে প্রোপান-২-অল হয় [১]। টলেন বিকারকে প্রোপান্যাল রুপালি দর্পণ দেয়, প্রোপানোন দেয় না [১]।"],
+["P বিন্দুটি (৩,০) ও (−৩,০) থেকে এমন দূরত্বে থাকে যেন দূরত্বদ্বয়ের যোগফল সর্বদা ১০। (ক) সঞ্চারপথ শনাক্ত করে সমীকরণ নির্ণয় করুন [২]। (খ) উৎকেন্দ্রিকতা কত [১]? (গ) x=৩ রেখা সঞ্চারপথ থেকে যে জ্যা ছেদ করে তার দৈর্ঘ্য নির্ণয় করুন [২]।",
+"স্থির দূরত্বসমষ্টির সঞ্চারপথ উপবৃত্ত। ২a=১০, c=৩ [১]। b²=a²−c²=১৬, সমীকরণ x²/২৫+y²/১৬=১ [১]। e=c/a=৩/৫ [১]। x=৩ হলে y²=২৫৬/২৫, y=±১৬/৫ [১]। জ্যার দৈর্ঘ্য ৩২/৫ একক [১]।"],
+["একটি ১২ m × ১২ m বর্গাকার পাতের চার কোণ থেকে x বাহুর সমান চারটি বর্গ কেটে পাশগুলো ভাঁজ করে ঢাকনাহীন বাক্স বানানো হলো। (ক) আয়তনের সূত্র ও x-এর গ্রহণযোগ্য সীমা [১], (খ) সর্বাধিক আয়তনের জন্য x নির্ণয় [২], (গ) সর্বাধিক হওয়ার যুক্তি ও সর্বাধিক আয়তন লিখুন [২]।",
+"V=x(১২−২x)², ০<x<৬ [১]। V′=(১২−২x)(১২−৬x) [১]। ব্যবধানে একমাত্র স্থির বিন্দু x=২ m [১]। x=২-এর আগে V′ ধনাত্মক ও পরে ঋণাত্মক, তাই এটি সর্বাধিক [১]। V=২×৮²=১২৮ m³ [১]।"],
+["একটি স্বাভাবিক সপুষ্পক উদ্ভিদে 2n=১৬। একটি পরাগমাতৃকোষ থেকে পরিণত স্ত্রীগ্যামেটোফাইটের ডিম্বাণু পর্যন্ত পুরুষ গ্যামেট পৌঁছানোর ঘটনাগুলো বিবেচনা করুন। (ক) একটি পরাগমাতৃকোষে মিয়োসিস শেষে কয়টি মাইক্রোস্পোর হবে এবং প্রতিটিতে ক্রোমোজোম কত [১]? (খ) জননকোষ থেকে পুরুষ গ্যামেট কীভাবে হয় ও কীভাবে ভ্রূণথলিতে পৌঁছায় [২]? (গ) দ্বিনিষেকের দুটি মিলন ও উৎপাদের ক্রোমোজোম সংখ্যা লিখুন [২]।",
+"চারটি হ্যাপ্লয়েড মাইক্রোস্পোর, প্রতিটিতে ৮টি ক্রোমোজোম [১]। জননকোষ মাইটোসিসে দুটি পুরুষ গ্যামেট তৈরি করে [১]। গর্ভমুণ্ডে পরাগ অঙ্কুরিত হয়ে পরাগনালি গর্ভদণ্ড পেরিয়ে সাধারণত ডিম্বকরন্ধ্র দিয়ে ভ্রূণথলিতে গ্যামেট পৌঁছে দেয় [১]। ডিম্বাণু+এক গ্যামেট→জাইগোট, ১৬ [১]। দুই মেরুকেন্দ্র+অন্য গ্যামেট→প্রাথমিক সস্যকেন্দ্র, ২৪ [১]।"],
+["একটি সুস্থ মানুষের সক্রিয় পেশিতে বিশ্রামরত পেশির তুলনায় CO₂ ও তাপমাত্রা বেশি। (ক) টিস্যুতে CO₂ থেকে বাইকার্বোনেট গঠনের সমীকরণ ও লোহিত কণিকার সংশ্লিষ্ট এনজাইম লিখুন [২]। (খ) pH পরিবর্তন কীভাবে অক্সিজেন সরবরাহে সাহায্য করে [২]? (গ) ফুসফুসে CO₂-এর আংশিক চাপ কম হলে রক্ত ও অ্যালভিওলাসের মধ্যে CO₂ প্রবাহের দিক লিখুন [১]।",
+"CO₂+H₂O ⇌ H₂CO₃ ⇌ H⁺+HCO₃⁻ [১]। এনজাইম কার্বনিক অ্যানহাইড্রেজ প্রথম বিপরীতমুখী ধাপটি ত্বরান্বিত করে [১]। H⁺ বৃদ্ধিতে pH কমে ও হিমোগ্লোবিনের O₂ আসক্তি কমে [১]। একই PO₂-তে বেশি O₂ মুক্ত হয়, যা সক্রিয় পেশিতে সরবরাহ বাড়ায় [১]। CO₂ শিরার রক্ত থেকে অ্যালভিওলাসে ব্যাপন করে [১]।"]
+];
+const KEY="du-science-03-attempt-v1", PERIOD=45*60*1000;
+const letters=["ক","খ","গ","ঘ"];
+const $=id=>document.getElementById(id);
+const app=$("app");
+const bn=n=>Number(n).toLocaleString("bn-BD",{useGrouping:false});
+const escapeHTML=value=>String(value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+let state=null, sending=false, photoBusy=false;
+function warn(message){$("warning").textContent=message}
+function save(){
+  try{localStorage.setItem(KEY,JSON.stringify(state));warn("");return true}
+  catch{warn("ব্রাউজারে সংরক্ষণ করা যায়নি। এই ট্যাব খোলা রাখুন।");return false}
+}
+function startPage(){
+  app.innerHTML='<section><small>ঢাবি বিজ্ঞান ইউনিট প্রস্তুতি</small><h1>মডেল টেস্ট ০৩</h1><p>পদার্থবিজ্ঞান · রসায়ন · উচ্চতর গণিত · জীববিজ্ঞান</p><p><b>৬০টি MCQ · ৪৫ মিনিট</b><br>৮টি লিখিত প্রশ্ন · ৪০ নম্বর · ৪৫ মিনিট</p><p>প্রতি সঠিক উত্তরে ১ নম্বর, ভুল উত্তরে ০.২৫ নম্বর কাটা হবে। ফাঁকা উত্তরে ০। MCQ জমা দিলে লিখিত পর্ব শুরু হবে। সময় শেষ হলেও উত্তর লক হবে।</p><p>এটি মৌলিক অনুশীলনী পরীক্ষা। লিখিত উত্তর টাইপ করুন অথবা প্রতি প্রশ্নে একটি ছবি দিন। চূড়ান্ত জমায় আপনার নাম, আইডি, MCQ ফল ও লিখিত উত্তর শিক্ষকের কাছে পাঠানো হবে। নিজের নম্বর পরে এই ডিভাইসে রাখতে পারবেন।</p><form id="entry"><label>নাম<br><input id="student" required maxlength="80" autocomplete="name"></label><label>শিক্ষার্থী আইডি<br><input id="roll" required maxlength="48"></label><button>পরীক্ষা শুরু করুন</button></form></section>';
+  $("entry").onsubmit=e=>{
+    e.preventDefault();
+    const name=$("student").value.trim(),id=$("roll").value.trim();
+    if(!name||!id){warn("নাম ও আইডি লিখুন।");return}
+    const now=Date.now();
+    state={attemptId:crypto.randomUUID?.()||now+"-"+Math.random().toString(36).slice(2),name,id,start:now,end:now+PERIOD,stage:"mcq",choices:Array(60).fill(null),writing:papers.map(()=>({text:"",photo:null})),marks:Array(8).fill(null),delivery:"pending"};
+    save();render();
+  };
+}
+function scores(){
+  const subjects=SUBJECTS.map((subject,s)=>{
+    let correct=0,wrong=0,blank=0;
+    questions.slice(s*15,s*15+15).forEach((q,j)=>{
+      const a=state.choices[s*15+j];
+      if(a===null)blank++;else if(a===q.key)correct++;else wrong++;
+    });
+    return {subject,correct,wrong,blank,score:correct-wrong/4};
+  });
+  const sum=k=>subjects.reduce((v,s)=>v+s[k],0);
+  return {correct:sum("correct"),wrong:sum("wrong"),blank:sum("blank"),mcqScore:sum("score"),mcqMax:60,writtenScore:null,writtenMax:40,totalScore:null,totalMax:100,subjects};
+}
+function payload(){
+  const results=scores();
+  return {exam:"Model Test 03",attemptId:state.attemptId,name:state.name,id:state.id,
+    score:results.mcqScore,results,startedAt:new Date(state.start).toISOString(),
+    writtenStartedAt:new Date(state.writtenAt).toISOString(),submittedAt:new Date(state.finished).toISOString(),reason:state.reason,
+    answers:{mcq:Object.fromEntries(state.choices.map((a,i)=>["Q"+(i+1),a===null?null:{option:letters[a],text:questions[i].options[a]}])),
+      written:Object.fromEntries(state.writing.map((a,i)=>["W"+(i+1),{text:a.text,photo:a.photo}]))}};
+}
+function openWritten(at){
+  state.stage="written";state.writtenAt=at;state.end=at+PERIOD;save();
+}
+function finish(at,reason){
+  if(state.stage!=="written")return;
+  state.stage="done";state.finished=at;state.reason=reason;
+  save();render();window.scrollTo(0,0);void send();
+}
+function tick(){
+  if(!state||state.stage==="done")return;
+  const now=Date.now();
+  if(state.stage==="mcq"&&now>=state.end){openWritten(state.end);render();window.scrollTo(0,0)}
+  if(state.stage==="written"&&now>=state.end){finish(state.end,"timeout");return}
+  const s=Math.max(0,Math.ceil((state.end-now)/1000));
+  $("clock").textContent=String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0");
+}
+function active(stage){tick();return state?.stage===stage}
+function nav(){return '<nav>'+SUBJECTS.map((s,i)=>'<a href="#sub'+i+'">'+s+'</a>').join("")+'</nav>'}
+function examPage(){
+  const isMCQ=state.stage==="mcq";
+  let out='<section><small>'+escapeHTML(state.name)+' · '+escapeHTML(state.id)+'</small><h2>'+(isMCQ?"পর্ব ১ · বহুনির্বাচনি":"পর্ব ২ · লিখিত")+'</h2><p id="progress"></p>'+nav()+'</section>';
+  SUBJECTS.forEach((subject,s)=>{
+    out+='<h2 id="sub'+s+'">'+subject+'</h2>';
+    if(isMCQ){
+      questions.slice(s*15,s*15+15).forEach((q,j)=>{
+        const i=s*15+j;
+        out+='<article><b>'+bn(i+1)+'. '+escapeHTML(q.stem)+'</b>'+q.options.map((opt,k)=>'<label class="option"><input type="radio" name="q'+i+'" data-q="'+i+'" value="'+k+'" '+(state.choices[i]===k?"checked":"")+'> '+letters[k]+'. '+escapeHTML(opt)+'</label>').join("")+'<button class="secondary" data-clear="'+i+'">উত্তর মুছুন</button></article>';
+      });
+    }else{
+      papers.slice(s*2,s*2+2).forEach(([q],j)=>{
+        const i=s*2+j,a=state.writing[i];
+        out+='<article><b>'+bn(i+1)+'. '+q+'</b><label>লিখিত উত্তর<textarea maxlength="5000" data-text="'+i+'">'+escapeHTML(a.text)+'</textarea></label><label>খাতার ছবি <input type="file" accept="image/*" data-photo="'+i+'"></label><label>ক্যামেরায় তুলুন <input type="file" accept="image/*" capture="environment" data-photo="'+i+'"></label><div id="preview'+i+'"></div><button class="secondary" data-remove="'+i+'">ছবি সরান</button></article>';
+      });
+    }
+  });
+  app.innerHTML=out+'<button id="submit">'+(isMCQ?"MCQ জমা দিয়ে লিখিত শুরু করুন":"Submit Exam · পরীক্ষা জমা দিন")+'</button>';
+  if(isMCQ)progress();else{
+    $("progress").textContent="প্রতি প্রশ্ন ৫ নম্বর। টাইপ করা উত্তর ও সংরক্ষিত ছবি দুটোই পাঠানো হবে।";
+    papers.forEach((_,i)=>preview(i));
+  }
+  $("submit").onclick=()=>{
+    const expected=isMCQ?"mcq":"written";
+    if(!active(expected))return;
+    if(photoBusy){warn("ছবিটি প্রস্তুত হচ্ছে। একটু অপেক্ষা করুন।");return}
+    if(!confirm(isMCQ?"MCQ উত্তর লক করে লিখিত শুরু করবেন?":"সব উত্তর লক করে শিক্ষকের কাছে পাঠাবেন?"))return;
+    if(!active(expected))return;
+    if(isMCQ){openWritten(Date.now());render();tick();window.scrollTo(0,0)}
+    else finish(Date.now(),"manual");
+  };
+}
+function progress(){$("progress").textContent="উত্তর দেওয়া হয়েছে "+bn(state.choices.filter(a=>a!==null).length)+" / ৬০"}
+function preview(i){
+  const box=$("preview"+i);box.replaceChildren();
+  if(!state.writing[i].photo)return;
+  const img=new Image();img.alt="সংরক্ষিত উত্তর "+bn(i+1);img.src=state.writing[i].photo;box.append(img);
+}
+async function attach(i,file){
+  if(!file||photoBusy||!active("written"))return;
+  if(file.size>20*1024*1024){warn("২০ MB-এর ছোট ছবি দিন।");return}
+  photoBusy=true;warn("ছবি প্রস্তুত হচ্ছে…");
+  const url=URL.createObjectURL(file);
+  try{
+    const img=new Image();img.src=url;await img.decode();
+    const scale=Math.min(1,1800/Math.max(img.width,img.height));
+    const canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));
+    const ctx=canvas.getContext("2d");ctx.fillStyle="white";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);
+    let data=canvas.toDataURL("image/jpeg",0.82);
+    if(data.length>420000)data=canvas.toDataURL("image/jpeg",0.54);
+    if(data.length>420000)throw Error("ছবিটি ক্রপ করে শুধু উত্তরের অংশ দিন।");
+    if(!active("written"))return;
+    const old=state.writing[i].photo;state.writing[i].photo=data;
+    if(!save()){state.writing[i].photo=old;warn("ছবি সংরক্ষণ করা যায়নি। ছোট ছবি দিন।");return}
+    preview(i);warn("ছবি সংরক্ষিত হয়েছে।");
+  }catch(e){warn(e.message?.includes("ক্রপ")?e.message:"ছবি পড়া যায়নি। JPG বা PNG দিন।")}
+  finally{photoBusy=false;URL.revokeObjectURL(url)}
+}
+app.addEventListener("input",e=>{
+  const t=e.target;
+  if(t.matches("[data-text]")&&active("written")){state.writing[Number(t.dataset.text)].text=t.value;save()}
+});
+app.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.matches("[data-q]")&&active("mcq")){state.choices[Number(t.dataset.q)]=Number(t.value);save();progress()}
+  if(t.matches("[data-photo]")){const file=t.files[0];t.value="";void attach(Number(t.dataset.photo),file)}
+  if(t.matches("[data-mark]")&&state.stage==="done"){
+    const i=Number(t.dataset.mark);
+    if(!t.validity.valid){t.value=state.marks[i]??"";warn("০ থেকে ৫-এর মধ্যে ০.২৫ ধাপে নম্বর দিন।");return}
+    state.marks[i]=t.value===""?null:Number(t.value);save();selfSummary();
+  }
+});
+app.addEventListener("click",e=>{
+  const t=e.target;
+  if(t.matches("[data-clear]")&&active("mcq")){
+    const i=Number(t.dataset.clear);state.choices[i]=null;
+    app.querySelectorAll('[name="q'+i+'"]').forEach(r=>r.checked=false);save();progress();
+  }
+  if(t.matches("[data-remove]")&&!photoBusy&&active("written")){
+    const i=Number(t.dataset.remove);state.writing[i].photo=null;save();preview(i);
+  }
+});
+function selfSummary(){
+  const count=state.marks.filter(n=>n!==null).length;
+  const total=state.marks.reduce((v,n)=>v+(n??0),0);
+  $("self").textContent="স্ব-মূল্যায়ন "+bn(count)+"/৮ · লিখিত "+bn(total)+"/৪০"+(count===8?" · মোট "+bn(scores().mcqScore+total)+"/১০০":"");
+}
+function resultPage(){
+  const r=scores();
+  app.innerHTML='<section><small>'+escapeHTML(state.name)+' · '+escapeHTML(state.id)+'</small><h1>ফলাফল</h1><h2>MCQ '+bn(r.mcqScore)+' / ৬০</h2><p>সঠিক '+bn(r.correct)+' · ভুল '+bn(r.wrong)+' · ফাঁকা '+bn(r.blank)+'</p><table><tr><th>বিষয়</th><th>MCQ / ১৫</th></tr>'+r.subjects.map(s=>'<tr><td>'+s.subject+'</td><td>'+bn(s.score)+'</td></tr>').join("")+'</table><div id="network" role="status"></div><p id="self"></p><small>লিখিত নম্বর নিজের অনুশীলনের জন্য এই ডিভাইসে থাকে।</small><div class="controls"><button onclick="window.print()">প্রিন্ট / PDF</button><button id="restart" class="secondary">নতুন প্রচেষ্টা</button></div></section><h2>বহুনির্বাচনি উত্তরপত্র</h2>'+questions.map((q,i)=>{
+    const a=state.choices[i];
+    return '<article><b>'+bn(i+1)+'. '+escapeHTML(q.stem)+'</b><p>আপনার উত্তর · '+(a===null?"ফাঁকা":letters[a]+'. '+escapeHTML(q.options[a]))+'</p><p><strong>সঠিক · '+letters[q.key]+'. '+escapeHTML(q.options[q.key])+'</strong></p><p>'+escapeHTML(q.why)+'</p></article>';
+  }).join("")+'<h2>লিখিত উত্তরপত্র</h2>'+papers.map(([q,solution],i)=>'<article><b>'+bn(i+1)+'. '+q+'</b><p class="answer">'+escapeHTML(state.writing[i].text||"টাইপ করা উত্তর নেই।")+'</p><div id="preview'+i+'"></div><p><strong>মডেল সমাধান ও নম্বরবণ্টন</strong></p><p>'+solution+'</p><label>স্ব-মূল্যায়ন / ৫ <input type="number" min="0" max="5" step=".25" data-mark="'+i+'" value="'+(state.marks[i]??"")+'"></label></article>').join("");
+  papers.forEach((_,i)=>preview(i));selfSummary();network();
+  $("restart").onclick=()=>{
+    if(sending||photoBusy)return;
+    if(!confirm("এই ডিভাইসের আগের উত্তর ও ছবি মুছে নতুন পরীক্ষা শুরু করবেন?"))return;
+    try{localStorage.removeItem(KEY)}catch{warn("ডিভাইস থেকে পুরোনো উত্তর মোছা যায়নি।");return}
+    state=null;warn("");render();window.scrollTo(0,0);
+  };
+}
+function network(){
+  const box=$("network");if(!box)return;
+  const sent=state.delivery==="sent";
+  box.textContent=sending?"উত্তর পাঠানো হচ্ছে…":sent?"জমার অনুরোধ পাঠানো হয়েছে। শিটে সংরক্ষণ শিক্ষক যাচাই করতে পারবেন।":"জমার অনুরোধ অপেক্ষমাণ। সংযোগ থাকলে আবার পাঠান।";
+  if(!sending&&!sent){
+    const b=document.createElement("button");b.textContent="আবার পাঠান";b.onclick=send;box.append(b);
+  }
+  $("restart").disabled=sending||!sent;
+}
+async function send(){
+  if(!state||state.stage!=="done"||sending||state.delivery==="sent")return;
+  sending=true;network();
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),45000);
+  try{
+    // A simple text/plain request carries JSON without a CORS preflight.
+    await fetch(ENDPOINT,{method:"POST",mode:"no-cors",credentials:"omit",
+      headers:{"Content-Type":"text/plain;charset=UTF-8"},body:JSON.stringify(payload()),signal:controller.signal});
+    state.delivery="sent";save();
+  }catch{state.delivery="pending";save()}
+  finally{clearTimeout(timeout);sending=false;network()}
+}
+function render(){
+  $("clock").textContent="";
+  if(!state)startPage();else if(state.stage==="done")resultPage();else examPage();
+}
+try{
+  const raw=localStorage.getItem(KEY);if(raw)state=JSON.parse(raw);
+  render();tick();
+  if(state?.stage==="done"&&state.delivery==="pending")void send();
+}catch{warn("সংরক্ষিত পরীক্ষা খোলা যায়নি। একই ব্রাউজারের স্বাভাবিক উইন্ডোতে খুলুন।")}
+setInterval(tick,500);
+window.addEventListener("online",()=>{if(state?.stage==="done")void send()});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)tick()});
+</script>
+<!-- Teacher setup: the following block is optional Google Apps Script source.
+Copy only the contents of the block into the existing project's Code.gs.
+Set the spreadsheet ID, then update the existing web app deployment.
+If you already have a doPost handler, route Model Test 03 submissions
+to receiveModel03(e) from that handler to preserve your other exams. -->
+<script type="text/plain" id="apps-script-receiver">
+const MODEL03_SHEET_ID = "PASTE_SPREADSHEET_ID_HERE";
+
+function doPost(e) {
+  return receiveModel03(e);
+}
+
+function receiveModel03(e) {
+  const p = JSON.parse(e.postData.contents);
+  if (p.exam !== "Model Test 03" || !/^[a-zA-Z0-9-]{8,80}$/.test(p.attemptId)
+      || typeof p.name !== "string" || typeof p.id !== "string"
+      || !Number.isFinite(p.score) || !p.answers || !p.answers.written) {
+    throw new Error("Invalid exam submission");
+  }
+  const lock = LockService.getScriptLock();
+  lock.waitLock(30000);
+  try {
+    const book = SpreadsheetApp.openById(MODEL03_SHEET_ID);
+    const sheet = book.getSheetByName("Model Test 03") || book.insertSheet("Model Test 03");
+    const headers = ["Attempt ID","Submitted UTC","Name","Student ID","MCQ / 60",
+      "Correct","Wrong","Blank","Results JSON","MCQ answers JSON"];
+    for (let i=1;i<=8;i++) headers.push("W"+i+" text","W"+i+" photo");
+    if (!sheet.getLastRow()) sheet.appendRow(headers);
+
+    // Only dedicated exam columns are written. Teacher-added columns stay intact.
+    const count = sheet.getLastRow()-1;
+    const found = count ? sheet.getRange(2,1,count,1).createTextFinder(p.attemptId)
+      .matchEntireCell(true).findNext() : null;
+    const row = found ? found.getRow() : sheet.getLastRow()+1;
+    const literal = value => "'" + String(value == null ? "" : value);
+    const values = [p.attemptId,p.submittedAt,literal(p.name),literal(p.id),p.score,
+      p.results.correct,p.results.wrong,p.results.blank,JSON.stringify(p.results),
+      JSON.stringify(p.answers.mcq)];
+    for (let i=1;i<=8;i++) {
+      const answer = p.answers.written["W"+i];
+      if (!answer || typeof answer.text !== "string" || answer.text.length>5000)
+        throw new Error("Invalid written answer");
+      let photoURL = "";
+      if (answer.photo) {
+        const match = /^data:image\/jpeg;base64,([A-Za-z0-9+/=]+)$/.exec(answer.photo);
+        if (!match || answer.photo.length>420000) throw new Error("Invalid photo");
+        // A private folder per deployment. Store Drive links instead of image data in cells.
+        const props = PropertiesService.getScriptProperties();
+        const folderId = props.getProperty("MODEL03_PHOTO_FOLDER");
+        const folder = folderId ? DriveApp.getFolderById(folderId) : DriveApp.createFolder("Model Test 03 answers");
+        if (!folderId) props.setProperty("MODEL03_PHOTO_FOLDER",folder.getId());
+        const filename = p.attemptId+"-W"+i+".jpg";
+        const existing = folder.getFilesByName(filename);
+        const file = existing.hasNext() ? existing.next() : folder.createFile(
+          Utilities.newBlob(Utilities.base64Decode(match[1]),"image/jpeg",filename));
+        photoURL = file.getUrl();
+      }
+      values.push(literal(answer.text),photoURL);
+    }
+    sheet.getRange(row,1,1,values.length).setValues([values]);
+    SpreadsheetApp.flush();
+    return ContentService.createTextOutput("OK");
+  } finally {
+    lock.releaseLock();
+  }
+}
+</script>
+</html>
